@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 echo "# install Spark"
-SPARK_VER=1.5.2
+#SPARK_VER=1.5.2
+SPARK_VER=2.2.0
 HADOOP_VER=2.6
 SPARK_DIST=spark-$SPARK_VER-bin-hadoop$HADOOP_VER
 SPARK_URL="http://www.eu.apache.org/dist/spark/spark-$SPARK_VER/$SPARK_DIST.tgz"
@@ -18,7 +19,7 @@ fi
 #sudo tar xzvf $TEMP_DIR/$SPARK_DIST.tgz
 sudo tar xzvf $APPS_DIR/$SPARK_DIST.tgz -C $INSTALL_DIR
 cd $INSTALL_DIR
-sudo ln -s $SPARK_DIST spark
+sudo ln -s -f $SPARK_DIST spark
 sudo chown -R root:root $SPARK_DIST
 
 export SPARK_HOME=${INSTALL_DIR}/spark
@@ -41,6 +42,6 @@ if ! grep -q 'export PYTHONPATH' $BASHRC; then
 fi
 
 # link $SPARK_HOME/conf/spark-env.sh file to /vagrant home
-sudo ln -s /vagrant/scripts/spark-env.sh $SPARK_HOME/conf/spark-env.sh
+sudo ln -s -f /vagrant/scripts/spark-env.sh $SPARK_HOME/conf/spark-env.sh
 
 #$SPARK_HOME/sbin/start-all.sh

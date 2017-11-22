@@ -7,7 +7,7 @@ BASHRC=$HOME/.bashrc
 JAVA_DIR=/usr/lib/jvm/java-7-openjdk-i386
 SYSTEM=`uname -m`
 
-if [ "$SYSTEM" == "x86_64" ]; then 
+if [ "$SYSTEM" == "x86_64" ]; then
   JAVA_DIR=/usr/lib/jvm/java-7-openjdk-amd64
 fi
 
@@ -20,7 +20,7 @@ if ! grep -q 'export JAVA_HOME' $BASHRC; then
   echo "export JAVA_HOME=$JAVA_HOME" >> $BASHRC
 fi
 
-echo "# install python"
+#echo "# install python"
 sudo apt-get -y install build-essential python-pip python-dev python3-pip python3-dev libzmq3 libzmq3-dev
 #libfreetype6-dev libxft-dev
 
@@ -30,4 +30,3 @@ echo "# install scala 2.10"
 wget -q -P $TEMP_DIR -c http://downloads.typesafe.com/scala/2.10.6/scala-2.10.6.deb
 sudo dpkg -i $TEMP_DIR/scala-2.10.6.deb
 rm $TEMP_DIR/scala-2.10.6.deb
-

@@ -70,11 +70,9 @@ if [[ "$TYPE" == "MASTER" ]]; then
   #su vagrant -c "cp /home/vagrant/.ssh/id_rsa.pub $SSH_KEYS_PATH/authorized_keys"
   sudo -u vagrant sh -c "cp /home/vagrant/.ssh/id_rsa.pub $SSH_KEYS_PATH/authorized_keys"
 
-  SCRIPTS="$SCRIPTS 
+  SCRIPTS="$SCRIPTS
   30-R.sh
   40-jupyter.sh
-  41-test_helper.sh
-  42-rise.sh
   43-spark-kernel.sh
   44-irkernel.sh
   45-jupyter-extensions.sh
@@ -97,7 +95,7 @@ echo $SCRIPTS
 for SCRIPT in $SCRIPTS; do
   SCRIPT_NAME=$(basename $SCRIPT)
   if ! [[ ${SCRIPT_NAME} =~ ^# ]]; then
-    echo $LINE 
+    echo $LINE
     echo "Running... $SCRIPT_NAME"
     echo $LINE
     #echo $SCRIPT_NAME
@@ -125,4 +123,3 @@ echo $LINE
 echo "END provisioning $(date +'%Y/%m/%d %H:%M:%S')"
 echo "TOTAL TIME: $(($(date +%s) - $STARTTIME)) seconds"
 echo $LINE
-

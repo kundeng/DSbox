@@ -2,39 +2,37 @@
 
 echo "# install jupyter"
 
-#ANACONDA_URL=https://repo.continuum.io/archive
-#ANACONDA_FILE=Anaconda3-2.3.0-Linux-x86.sh
-#ANACONDA_DIR=/opt/anaconda
-#TEMP_DIR=/tmp
+ANACONDA_URL=https://repo.continuum.io/archive
+ANACONDA_FILE=Anaconda3-5.0.1-Linux-x86_64.sh
+ANACONDA_DIR=/opt/anaconda
+TEMP_DIR=/tmp
 
 HOME=/home/vagrant
 BASHRC=$HOME/.bashrc
 
-#sudo wget -q -P $TEMP_DIR -c $ANACONDA_URL/$ANACONDA_FILE
-#sudo bash $ANACONDA_FILE -b -p $ANACONDA_DIR
-#sudo $ANACONDA_DIR/bin/conda install -y jupyter
+sudo wget -q -P $TEMP_DIR -c $ANACONDA_URL/$ANACONDA_FILE
+sudo bash $TEMP_DIR/$ANACONDA_FILE -b -p $ANACONDA_DIR
+sudo $ANACONDA_DIR/bin/conda install -y jupyter
 #sudo $ANACONDA_DIR/bin/conda clean -yt
 
 # install jupyter with python3 as default kernel
-# http://totoprojects.blogspot.com.es/ 
+# http://totoprojects.blogspot.com.es/
 # http://stackoverflow.com/questions/30492623/using-both-python-2-x-and-python-3-x-in-ipython-notebook
 # https://github.com/ipython/ipython/pull/8877
 # https://github.com/jupyter/jupyter/issues/52
-sudo pip3 install jupyter
+#sudo pip3 install jupyter
 
 # install ipython2 ...
-sudo pip install jupyter
+#sudo pip install jupyter
 
 # ... and then install python2 kernel in jupyter
 # THIS LINE WON'T WORK!! #sudo ipython2 kernelspec install-self
 # try this:
-sudo python2 -m ipykernel install
+#sudo python2 -m ipykernel install
 
 # create config
-#$ANACONDA_DIR/bin/jupyter notebook --generate-config
-#su vagrant -c "jupyter notebook --generate-config"
-#sudo -u vagrant sh -c "jupyter notebook --generate-config"
-sudo su vagrant -c "jupyter notebook --generate-config"
+sudo su vagrant -c ""$ANACONDA_DIR/bin/jupyter notebook --generate-config"
+#sudo su vagrant -c "jupyter notebook --generate-config"
 
 # overwrite default config
 #su vagrant -c "cat > $HOME/.jupyter/jupyter_notebook_config.py <<EOF
@@ -51,17 +49,14 @@ c.NotebookApp.open_browser = False
 EOF"
 
 # change owner of /home/vagrant/.local
-sudo chown -R vagrant:vagrant $HOME/.local 
+sudo chown -R vagrant:vagrant $HOME/.local
 
-# install matplotlib
-#sudo apt-get build-dep matplotlib
-#sudo pip install matplotlib
-#sudo pip3 install matplotlib 
 
-sudo apt-get -y install python-matplotlib python-numpy python-scipy
-sudo apt-get -y install python3-matplotlib python3-numpy python3-scipy
+#sudo apt-get -y install python-matplotlib python-numpy python-scipy
+#sudo apt-get -y install python3-matplotlib python3-numpy python3-scipy
 
-#echo "export PATH=$PATH:$ANACONDA_DIR/bin" >> $BASHRC
-#echo "export PYTHONPATH=/usr/local/lib/python2.7/dist-packages:/opt/anaconda/lib/python2.7/site-packages:$PYTHONPATH" >> $BASHRC
-
+sudo $ANACONDA_DIR/bin/conda install -y numpy scipy
+echo "export PATH=$ANACONDA_DIR/bin:$PATH" >> $BASHRC
+echo "export PYTHONPATH=/usr/local/lib/python2.7/dist-packages:/opt/anaconda/lib/python3.6/site-packages:$PYTHONPATH" >> $BASHRC
+sudo ln -s $ANACONDA_DIR/bin/jupyter /usr/bin/jupyter
 # use: vagrant ssh spark-master -c "jupyter-notebook"

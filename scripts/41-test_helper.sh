@@ -17,6 +17,8 @@ APPS_DIR=/vagrant/apps
 #TEST_HELPER_HOME=/tmp/test_helper
 TEST_HELPER_HOME=$APPS_DIR/test_helper
 
+ANACONDA_DIR=/opt/anaconda
+
 if ! [ -d $TEST_HELPER_HOME ]; then
 #  git clone $TEST_HELPER_GIT $TEST_HELPER_HOME
   sudo git clone $TEST_HELPER_GIT $TEST_HELPER_HOME
